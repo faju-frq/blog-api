@@ -13,7 +13,7 @@ export const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    await User.create({
       name,
       email,
       phone,
@@ -55,7 +55,7 @@ export const login = async (req, res) => {
 
     res.json({ token });
   } catch (err) {
-    console.log("Login error:",err);
-    res.status(500).json({message:"Internal server error."})
+    console.log("Login error:", err);
+    res.status(500).json({ message: "Internal server error." });
   }
 };

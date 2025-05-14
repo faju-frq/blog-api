@@ -11,13 +11,17 @@ const sequelize = new Sequelize(
   }
 );
 
-import userModel from "./users.models";
+import userModel from "./user.models";
 import blogModel from "./blog.models";
-import commentModel from "./comments.models";
+import commentModel from "./comment.models";
+import blogLikeModel from "./blogLike.model";
+import commentLikeModel from "./commentLike.model"
 
 export const User=userModel(sequelize);
 export const Blog=blogModel(sequelize);
 export const Comment=commentModel(sequelize);
+export const BlogLike=blogLikeModel(sequelize);
+export const CommentLike=commentLikeModel(sequelize);
 
 User.hasMany(Blog, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 Blog.belongsTo(User, { foreignKey: 'user_id' });
@@ -28,4 +32,15 @@ Comment.belongsTo(Blog, { foreignKey: 'blog_id' });
 User.hasMany(Comment, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 Comment.belongsTo(User, { foreignKey: 'user_id' });
 
+BlogLike.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(BlogLike, { foreignKey: 'user_id' });
+
+BlogLike.belongsTo(Blog, { foreignKey: 'blog_id' });
+Blog.hasMany(BlogLike, { foreignKey: 'blog_id' });
+
+CommentLike.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(CommentLike, { foreignKey: 'user_id' });
+
+CommentLike.belongsTo(Comment, { foreignKey: 'comment_id' });
+Comment.hasMany(CommentLike, { foreignKey: 'comment_id' });
 

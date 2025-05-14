@@ -5,7 +5,7 @@ const userModel = (sequelize) => {
     "User",
     {
       id: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.BIGINT.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
       },

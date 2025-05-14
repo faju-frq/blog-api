@@ -15,6 +15,10 @@ export const authenticate = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json({ message: "Unauthorized: Invalid token" });
+    if (err.name === 'TokenExpiredError') {
+    return res.status(401).json({ message: "Unauthorized: Token has expired" });
+  }
+  console.error("JWT verification failed:", err);
+  res.status(401).json({ message: "Unauthorized: Invalid token" });
   }
 };

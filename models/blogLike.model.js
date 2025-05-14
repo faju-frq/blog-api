@@ -1,8 +1,8 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes} from "sequelize";
 
-const commentModel = (sequelize) => {
-  const Comment = sequelize.define(
-    "Comment",
+const blogLikeModel = (sequelize) => {
+  const BlogLike = sequelize.define(
+    "BlogLike",
     {
       id: {
         type: DataTypes.BIGINT.UNSIGNED,
@@ -19,21 +19,13 @@ const commentModel = (sequelize) => {
         allowNull: false,
      
       },
-      comment: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      likes: {
-        type: DataTypes.BIGINT.UNSIGNED,
-        defaultValue: 0,
-      },
     },
     {
       underscored: true,
     }
   );
 
-  return Comment;
+  return BlogLike;
 };
 
-export default commentModel;
+export default blogLikeModel;

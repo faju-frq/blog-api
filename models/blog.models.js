@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes } from "sequelize";
 
 const blogModel = (sequelize) => {
   const Blog = sequelize.define(
@@ -12,7 +12,6 @@ const blogModel = (sequelize) => {
       user_id: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
-        
       },
       heading: {
         type: DataTypes.TEXT,
@@ -22,14 +21,13 @@ const blogModel = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      likes: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
       status: {
-        type: DataTypes.ENUM,
-        values: ["Draft", "Published"],
+        type: DataTypes.STRING,
+        allowNull: false,
         defaultValue: "Draft",
+        validate: {
+          isIn: [["Draft", "Published"]],
+        },
       },
     },
     {
