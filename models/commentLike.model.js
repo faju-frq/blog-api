@@ -22,6 +22,16 @@ const commentLikeModel = (sequelize) => {
     },
     {
       underscored: true,
+      indexes: [
+    {
+      fields: ['user_id'],
+      name: 'index_blogs_on_user_id'
+    },
+    {
+      fields: ['created_at'],
+      name: 'index_blogs_on_created_at'
+    }
+  ]
     }
   );
 

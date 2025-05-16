@@ -21,14 +21,6 @@ const blogModel = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      status: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "Draft",
-        validate: {
-          isIn: [["Draft", "Published"]],
-        },
-      },
     },
     {
       underscored: true,

@@ -22,6 +22,17 @@ const blogLikeModel = (sequelize) => {
     },
     {
       underscored: true,
+      indexes: [
+        {
+          unique: true,
+          fields: ['user_id', 'blog_id'],
+          name: 'unique_user_blog_like'
+        },
+        {
+          fields: ['blog_id'],
+          name: 'index_blog_likes_on_blog_id'
+        }
+      ]
     }
   );
 
