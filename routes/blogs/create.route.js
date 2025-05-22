@@ -1,5 +1,5 @@
 import express from "express";
-import { blogPost } from "../../controllers/blog.controller.js";
+import { postBlog } from "../../controllers/blog.controller.js";
 import { body } from "express-validator";
 import { authenticate } from "../../middleware/auth.middleware.js";
 
@@ -12,7 +12,7 @@ router.post(
     body("heading").notEmpty().withMessage("Heading required"),
     body("content").notEmpty().withMessage("Content required"),
   ],
-  blogPost]
+  postBlog]
 );
 
 export default router;

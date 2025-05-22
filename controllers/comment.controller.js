@@ -1,6 +1,6 @@
 import {Blog, Comment, CommentLike } from "../models/index.js";
 
-export const commentPost = async (req, res) => {
+export const postComment = async (req, res) => {
   try {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ message: "Unauthorized user" });
@@ -37,7 +37,7 @@ export const getMyComments = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-export const commentLike = async (req, res) => {
+export const likeComment = async (req, res) => {
   try {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ message: "Unauthorized user" });
@@ -72,5 +72,43 @@ export const commentLike = async (req, res) => {
   } catch (err) {
     console.error("Error liking/unliking comment:", err);
     res.status(500).json({ message: "Server error." });
+  }
+};
+
+export const updateComment = async (req, res) => {
+  try {
+    const id = req.params.id;           
+    const { comment } = req.body;         
+    const result = await Comment.update(
+      { comment },                    
+      { where: { id } }                
+    );
+
+   const updatedComment = await Comment.findByPk(id);
+    res.status(200).json({ 
+      message: "comment updated successfully",
+      blog: updatedComment
+    });
+  } catch (error) {
+    console.error("Error updating comment:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+export const deleteComment = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const deleted = await Comment.destroy({ where: { id } });
+
+    if (deleted) {
+      return res.status(200).json({ message: "Comment deleted successfully" });
+    } else {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+  } catch (error) {
+    console.error("Error deleting Comment:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

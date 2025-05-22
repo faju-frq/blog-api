@@ -1,9 +1,9 @@
 import express from "express";
-import { likeComment } from "../../controllers/comment.controller.js";
+import { deleteComment } from "../../controllers/comment.controller.js";
 import { authenticate } from "../../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.put("/:id", authenticate, likeComment);
+router.delete("/:id", authenticate, deleteComment);
 
 export default router;
